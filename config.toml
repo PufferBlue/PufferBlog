@@ -1,0 +1,9 @@
+baseURL = "//puffer.blog/"
+title = "河豚博客"
+publishdir = "docs"
+disableHugoGeneratorInject = true
+disableLiveReload =true
+hasCJKLanguage = true
+disableKinds = ["RSS", "sitemap", "404"]
+[minify]
+  minifyOutput = true
