@@ -4,6 +4,19 @@ publishdir = "docs"
 disableHugoGeneratorInject = true
 disableLiveReload =true
 hasCJKLanguage = true
-disableKinds = ["RSS", "sitemap", "404"]
+disableKinds = ["RSS", "sitemap"]
 [minify]
   minifyOutput = true
+
+[params]
+	[[params.navlinks]]
+	name = "about/"
+	url = "/about/"
+	
+	[[params.navlinks]]
+	name = "posts/"
+	url = "/posts/"
+	
+	[[params.navlinks]]
+	name = "donate/"
+	url = "/donate/"

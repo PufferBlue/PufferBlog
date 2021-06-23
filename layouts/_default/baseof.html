@@ -8,7 +8,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="referrer" content="same-origin">
     <meta name="robots" content="noarchive,noimageindex">
-    <link rel="stylesheet" href="//unpkg.zhimg.com/terminal.css@0.7.2/dist/terminal.min.css">
+    <link rel="stylesheet" href="//unpkg.zhimg.com/terminal.css@0.7.1/dist/terminal.min.css">
+    <link rel="stylesheet" href="//fonts.loli.net/css2?family=Roboto+Mono:wght@400&display=swap">
     <link rel="stylesheet" href="/css/console.min.css">
     {{- partial "favicon.html" . -}}
     {{ with .OutputFormats.Get "RSS" }}
@@ -19,20 +20,28 @@
 </head>
 
 <body class="terminal">
-    <div class="container">
-        <div class="terminal-nav">
-          <div id="header" class="terminal-logo">
-            <div class="logo terminal-prompt">
-              {{ $url := replace .Permalink ( printf "%s" .Site.BaseURL) "" }}
-              {{ $.Scratch.Add "path" .Site.BaseURL }}
-              <a href="{{ .Site.BaseURL }}" class="no-style {{ with .Site.Params.TitleCutting }}site-name{{ end }}">{{ .Site.Title }}</a>:~# {{ range $index, $element := split $url "/" }}{{ $.Scratch.Add "path" $element }}{{ if ne $element "" }}<a href='{{ $.Scratch.Get "path" | absURL }}'>{{ . }}</a>/{{ $.Scratch.Add "path" "/" }}{{ end }}{{ end }}</div></div>
-        </div>
-    </div>
+  <div class="container">
+      <div class="terminal-nav">
+        <header class="terminal-logo">
+          <div class="logo terminal-prompt">
+            {{ $url := replace .Permalink ( printf "%s" .Site.BaseURL) "" }}
+            {{ $.Scratch.Add "path" .Site.BaseURL }}
+            <a href="{{ .Site.BaseURL }}" class="title no-style {{ with .Site.Params.TitleCutting }}site-name{{ end }}">{{ .Site.Title }}</a>:~# 
+            {{ range $index, $element := split $url "/" }}{{ $.Scratch.Add "path" $element }}{{ if ne $element "" }}<a href='{{ $.Scratch.Get "path" | absURL }}'>{{ . }}</a>/{{ $.Scratch.Add "path" "/" }}{{ end }}{{ end }}</div></header>
+        <nav class="terminal-menu">
+          <ul vocab="https://schema.org/" typeof="BreadcrumbList">
+              {{ range .Site.Params.navlinks }}
+              <li><a href="{{ absURL .url }}" typeof="ListItem">{{ .name }}</a></li>
+              {{ end }}
+          </ul>
+        </nav>
+      </div>
+  </div>
 
-    <div class="container {{ .Site.Params.animateStyle }}" >
-        {{ block "main" . }}
-        {{ end }}
-        {{ partial "footer.html" . }}
-    </div>
-  </body>
+  <div class="container {{ .Site.Params.animateStyle }}" >
+      {{ block "main" . }}
+      {{ end }}
+      {{ partial "footer.html" . }}
+  </div>
+</body>
 </html>
